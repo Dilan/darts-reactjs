@@ -1,0 +1,33 @@
+body {
+  background: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  padding: 30px;
+}
+
+a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.player {
+    height: 50px;
+}
+
+.playerScore {
+    cursor: pointer;
+    display: inline-block;
+    margin: auto;
+}
+
+.playerName {
+    width: 150px;
+    display: inline-block;
+    margin: auto;
+}

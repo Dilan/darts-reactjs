@@ -1,0 +1,9 @@
+.idea
+logs
+*.log
+pids
+*.pid
+*.seed
+node_modules
+public/bundle.js
+.DS_Store

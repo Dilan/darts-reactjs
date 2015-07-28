@@ -1,0 +1,38 @@
+{
+  "name": "dilan-darts",
+  "version": "0.0.1",
+  "description": "Darts",
+  "main": "app.js",
+  "scripts": {
+    "check": "jsxhint app.js",
+    "test": "mocha -b tests/*.spec.js",
+    "tdd": "mocha -b -R min -w tests/*.spec.js",
+    "build": "browserify -t reactify app.js | uglifyjs > public/bundle.js",
+    "devbuild": "browserify -t reactify app.js > public/bundle.js",
+    "watch": "watchify app.js -t reactify app.js -o public/bundle.js"
+  },
+  "keywords": [
+    "reactjs"
+  ],
+  "author": "Anton Plotnikov",
+  "license": "MIT",
+  "dependencies": {
+    "connect": "1.x",
+    "open": "0.0.x",
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5",
+    "lodash": "3.10.x",
+    "react": "^0.13.2",
+    "react-modal": "0.3.0"
+  },
+  "devDependencies": {
+    "browserify": "11.0.x",
+    "watchify": "3.3.x",
+    "reactify": "1.1.x",
+    "jsdom-test-browser": "^2.1.0",
+    "jsxhint": "0.15.x",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1",
+    "uglify-js": "^2.4.20"
+  }
+}
