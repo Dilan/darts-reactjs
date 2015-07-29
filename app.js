@@ -3,8 +3,9 @@
 
     var _ = require('lodash'),
         React = require('react'),
-        Modal = require('react-modal'),
-        appElement = document.getElementById('content');
+        Modal = require('react-modal');
+
+    var appElement = document.getElementById('content');
 
     var Score = React.createClass({
         render: function() {
@@ -34,7 +35,7 @@
         render: function() {
             var self = this,
                 newScore = (this.state.newScore ? <span> + {this.state.newScore}</span> : ''),
-                buttons = [[1, 2, 3],[4, 5, 6],[7, 8, 9],[0, 'cancel', 'ok']].map(function(row) {
+                buttons = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0, 'cancel', 'ok']].map(function(row) {
                 var buttonRow = row.map(function(item) {
                     var clickHandler,
                         className = 'btn btn-primary btn-lg btn-block';

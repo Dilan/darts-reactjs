@@ -4,7 +4,7 @@
   "description": "Darts",
   "main": "app.js",
   "scripts": {
-    "check": "jsxhint app.js",
+    "check": "eslint app.js",
     "test": "mocha -b tests/*.spec.js",
     "tdd": "mocha -b -R min -w tests/*.spec.js",
     "build": "browserify -t reactify app.js | uglifyjs > public/bundle.js",
@@ -26,11 +26,12 @@
     "react-modal": "0.3.0"
   },
   "devDependencies": {
+    "eslint": "0.24.x",
+    "eslint-plugin-react": "3.1.x",
     "browserify": "11.0.x",
     "watchify": "3.3.x",
     "reactify": "1.1.x",
     "jsdom-test-browser": "^2.1.0",
-    "jsxhint": "0.15.x",
     "mocha": "^2.2.4",
     "sinon": "^1.14.1",
     "uglify-js": "^2.4.20"
