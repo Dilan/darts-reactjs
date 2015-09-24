@@ -17,7 +17,10 @@ a:hover {
 }
 
 .player {
+    vertical-align:middle;
     height: 50px;
+    line-height:4em;
+    border-bottom: 1px solid #8A8A8A;
 }
 
 .playerScore {
