@@ -22,18 +22,17 @@
     "body-parser": "^1.4.3",
     "express": "^4.4.5",
     "lodash": "3.10.x",
-    "react": "^0.13.2",
-    "react-modal": "0.3.0"
+    "react": "0.13.x",
+    "react-modal": "0.5.x"
   },
   "devDependencies": {
     "eslint": "0.24.x",
     "eslint-plugin-react": "3.1.x",
-    "browserify": "11.0.x",
-    "watchify": "3.3.x",
+    "browserify": "11.2.x",
+    "watchify": "3.4.x",
     "reactify": "1.1.x",
-    "jsdom-test-browser": "^2.1.0",
-    "mocha": "^2.2.4",
-    "sinon": "^1.14.1",
-    "uglify-js": "^2.4.20"
+    "mocha": "2.3.x",
+    "sinon": "1.17.x",
+    "uglify-js": "2.4.x"
   }
 }
