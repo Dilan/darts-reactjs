@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Dilan/darts-reactjs.svg?branch=master)](https://travis-ci.org/Dilan/darts-reactjs)
 # About
 
 Darts application based on React.js
