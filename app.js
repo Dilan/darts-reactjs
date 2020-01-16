@@ -1,42 +1,48 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import Modal from "react-modal";
+
 (function () {
     'use strict';
 
-    var _ = require('lodash'),
-        React = require('react'),
-        Modal = require('react-modal');
-
-    var appElement = document.getElementById('content');
-
-    var Score = React.createClass({
-        render: function() {
+    class Score extends React.Component {
+        render() {
             var residue = 300 - this.props.value;
             return <div className='score'>{this.props.value} / {residue}</div>;
         }
-    });
+    };
 
-    var AddScore = React.createClass({
-        getInitialState: function() {
-            return { player: this.props.player, newScore: '' };
-        },
+    class AddScore extends React.Component {
 
-        handleNumberClick: function(num) {
-            this.setState(_.merge(this.state, { newScore: ('' + this.state.newScore + num) }));
-        },
+        constructor(props) {
+            super(props);
 
-        handleCancelClick: function() {
+            this.state = { player: this.props.player, newScore: '' };
+
+            this.handleNumberClick = this.handleNumberClick.bind(this);
+            this.handleCancelClick = this.handleCancelClick.bind(this);
+            this.handleConfirmClick = this.handleConfirmClick.bind(this);
+        }
+
+        handleNumberClick(num) {
+            this.setState(Object.assign(this.state, { newScore: ('' + this.state.newScore + num) }));
+        }
+
+        handleCancelClick() {
             this.state.newScore = '';
             this.props.onCancelHandler();
-        },
+        }
 
-        handleConfirmClick: function() {
+        handleConfirmClick() {
             this.props.onConfirmHandler(this.state.newScore);
-        },
+        }
 
-        render: function() {
+        render() {
+            var k;
             var self = this,
                 newScore = (this.state.newScore ? <span> + {this.state.newScore}</span> : ''),
-                buttons = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0, 'cancel', 'ok']].map(function(row) {
-                var buttonRow = row.map(function(item) {
+                buttons = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0, 'cancel', 'ok']].map(function(row,i) {
+                var buttonRow = row.map(function(item,j) {
                     var clickHandler,
                         className = 'btn btn-primary btn-lg btn-block';
                     if (item === 'cancel') {
@@ -49,8 +55,10 @@
                         clickHandler = self.handleNumberClick.bind(self, item);
                     }
 
+                    k = i.toString() + '-' + j.toString();
+
                     return (
-                        <div className='btn-group'>
+                        <div className='btn-group' key={k}>
                             <button
                                 type='button'
                                 className={className}
@@ -59,94 +67,108 @@
                     );
                 });
                 return (
-                    <div className='btn-group btn-group-justified'>{buttonRow}</div>
+                    <div className='btn-group btn-group-justified' key={k}>{buttonRow}</div>
                 );
             });
 
             return (
-                <div>
+                <div key={Math.random()}>
                     <span><b>{this.state.player.name}</b>: </span>
                     <span>{this.state.player.score}</span> {newScore}
                     <div>{buttons}</div>
                 </div>
             );
         }
-    });
+    };
 
-    var PlayerRow = React.createClass({
-        getInitialState: function() {
-            return { player: this.props.player, modalIsOpen: false };
-        },
+    class PlayerRow extends React.Component {
 
-        handleAddScore: function() {
-            this.setState(_.merge(this.state, { modalIsOpen: true }));
-        },
+        constructor(props) {
+            super(props);
 
+            this.state = { player: this.props.player, modalIsOpen: false };
 
-        closeModal: function() {
-            this.setState(_.merge(this.state, {modalIsOpen: false}));
-        },
+            this.onConfirmHandler = this.onConfirmHandler.bind(this);
+            this.handleAddScore = this.handleAddScore.bind(this);
+            this.closeModal = this.closeModal.bind(this);
+        }
 
-        confirmNewScore: function(newScore) {
-            this.setState(_.merge(this.state, {
+        handleAddScore() {
+            this.setState(Object.assign(this.state, { modalIsOpen: true }));
+        }
+
+        closeModal() {
+            this.setState(Object.assign(this.state, {modalIsOpen: false}));
+        }
+
+        onConfirmHandler(newScore) {
+            this.setState(Object.assign(this.state, {
                 player: {
                     name: this.state.player.name,
                     score: (this.state.player.score + Number(newScore))
                 },
-                modalIsOpen: false }));
-        },
+                modalIsOpen: false })
+            );
+        }
 
-        render: function() {
+        render() {
             return (
-                <div className='player'>
-                    <div className='playerName'>{this.props.player.name}</div>
+                <div className='player' key={Math.random()}>
+                    <div className='playerName'>{this.state.player.name}</div>
                     <div className='playerScore' onClick={this.handleAddScore}>
-                        <Score value={this.state.player.score}/>
+                        <Score value={this.state.player.score} />
                     </div>
                     <Modal
                         isOpen={this.state.modalIsOpen}
                         onRequestClose={this.closeModal}
                     >
                         <AddScore
-                            player={this.props.player}
-                            onConfirmHandler={this.confirmNewScore}
+                            key={Math.random()}
+                            player={this.state.player}
+                            onConfirmHandler={this.onConfirmHandler}
                             onCancelHandler={this.closeModal} />
                     </Modal>
                 </div>
             );
         }
-    });
+    };
 
-    var DartsApp = React.createClass({
-        getInitialState: function() {
-            return {data: [
-                { name: 'Anton', score: 245 },
-                { name: 'Julia', score: 120 },
-                { name: 'MishGun', score: 241 },
-                { name: 'Шпулена', score: 187 }]
+    class DartsApp extends React.Component {
+
+        constructor(props) {
+            super(props);
+
+            this.state = {
+                data: [
+                    { name: 'Anton', score: 245 },
+                    { name: 'Julia', score: 120 },
+                    { name: 'MishGun', score: 241 },
+                    { name: 'Shulya', score: 187 }
+                ]
             };
-        },
+        }
 
-        render: function() {
+        render() {
             return (
                 <div className='dartsApp'>
                     <Players data={this.state.data} />
                 </div>
             );
         }
-    });
+    };
 
-    var Players = React.createClass({
-        handleLastScoreConfirmed: function() {
+    class Players extends React.Component {
 
-        },
-        render: function() {
+        handleLastScoreConfirmed() {
+
+        }
+        render() {
             var self = this;
             var playerNodes = this.props.data.map(function(player, index) {
                 return (
                     <PlayerRow
+                        key={player.name}
                         player={player}
-                        key={index}
                         onLastScoreConfirmed={self.handleLastScoreConfirmed.bind(self)} />
                 );
             });
@@ -156,10 +178,9 @@
                 </div>
             );
         }
-    });
+    };
 
+    var appElement = document.getElementById('content');
     Modal.setAppElement(appElement);
-    Modal.injectCSS();
-
-    React.render(<DartsApp />, appElement);
+    ReactDOM.render(<DartsApp />, appElement);
 }());

@@ -1,5 +1,11 @@
 var port = process.argv[3] || 1337;
-require('connect').
-    createServer(require('connect').static('public')).
-    listen(port, '127.0.0.1');
-require('open')('http://127.0.0.1:' + port + '/index.html');
+
+var StaticServer = require('static-server');
+var server = new StaticServer({
+    rootPath: './public/',
+    port: port
+});
+
+server.start(function () {
+    console.log('Server listening to', server.port);
+});

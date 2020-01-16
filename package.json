@@ -4,35 +4,23 @@
   "description": "Darts",
   "main": "app.js",
   "scripts": {
-    "check": "eslint app.js",
-    "test": "mocha -b tests/*.spec.js",
-    "tdd": "mocha -b -R min -w tests/*.spec.js",
-    "build": "browserify -t reactify app.js | uglifyjs > public/bundle.js",
-    "devbuild": "browserify -t reactify app.js > public/bundle.js",
-    "watch": "watchify app.js -t reactify app.js -o public/bundle.js"
+    "build": "webpack --mode production",
+    "build-dev": "webpack --mode development"
   },
-  "keywords": [
-    "reactjs"
-  ],
   "author": "Anton Plotnikov",
   "license": "MIT",
   "dependencies": {
-    "connect": "1.x",
-    "open": "0.0.x",
-    "body-parser": "^1.4.3",
-    "express": "^4.4.5",
-    "lodash": "3.10.x",
-    "react": "0.13.x",
-    "react-modal": "0.5.x"
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-modal": "3.11.1",
+    "static-server": "2.2.1"
   },
   "devDependencies": {
-    "eslint": "0.24.x",
-    "eslint-plugin-react": "3.1.x",
-    "browserify": "11.2.x",
-    "watchify": "3.4.x",
-    "reactify": "1.1.x",
-    "mocha": "2.3.x",
-    "sinon": "1.17.x",
-    "uglify-js": "2.4.x"
+    "webpack": "4.41.5",
+    "webpack-cli": "3.3.10",
+    "babel-loader": "8.0.6",
+    "@babel/core": "7.8.3",
+    "@babel/preset-env": "7.8.3",
+    "@babel/preset-react": "7.8.3"
   }
 }
